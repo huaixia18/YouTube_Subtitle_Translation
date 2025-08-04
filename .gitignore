@@ -1,0 +1,27 @@
+# Claude Code工作文件
+.claude/
+
+# 开发调试文件
+*.log
+.DS_Store
+Thumbs.db
+
+# IDE文件
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# 临时文件
+*.tmp
+*.bak
+
+# Node.js (如果后续添加构建工具)
+node_modules/
+npm-debug.log
+yarn-error.log
+
+# 打包文件
+*.zip
+dist/
+build/
