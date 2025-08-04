@@ -1,0 +1,312 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>YouTube翻译设置</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      width: 400px;
+      min-height: 500px;
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      background: #f8f9fa;
+      color: #333;
+    }
+
+    .header {
+      background: linear-gradient(135deg, #007bff, #0056b3);
+      color: white;
+      padding: 20px;
+      text-align: center;
+    }
+
+    .header h1 {
+      font-size: 18px;
+      font-weight: 600;
+      margin-bottom: 5px;
+    }
+
+    .header p {
+      font-size: 14px;
+      opacity: 0.9;
+    }
+
+    .content {
+      padding: 20px;
+    }
+
+    .section {
+      margin-bottom: 24px;
+    }
+
+    .section-title {
+      font-size: 16px;
+      font-weight: 600;
+      margin-bottom: 12px;
+      color: #333;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .form-group {
+      margin-bottom: 16px;
+    }
+
+    .form-label {
+      display: block;
+      font-size: 14px;
+      font-weight: 500;
+      margin-bottom: 6px;
+      color: #555;
+    }
+
+    .form-control {
+      width: 100%;
+      padding: 10px 12px;
+      border: 1px solid #ddd;
+      border-radius: 6px;
+      font-size: 14px;
+      transition: border-color 0.2s ease;
+    }
+
+    .form-control:focus {
+      outline: none;
+      border-color: #007bff;
+      box-shadow: 0 0 0 2px rgba(0, 123, 255, 0.25);
+    }
+
+    .form-check {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin-bottom: 12px;
+    }
+
+    .form-check input[type="checkbox"] {
+      width: 18px;
+      height: 18px;
+      accent-color: #007bff;
+    }
+
+    .form-check label {
+      font-size: 14px;
+      color: #555;
+      cursor: pointer;
+    }
+
+    .btn {
+      padding: 10px 20px;
+      border: none;
+      border-radius: 6px;
+      font-size: 14px;
+      font-weight: 500;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+
+    .btn-primary {
+      background: #007bff;
+      color: white;
+    }
+
+    .btn-primary:hover {
+      background: #0056b3;
+      transform: translateY(-1px);
+    }
+
+    .btn-secondary {
+      background: #6c757d;
+      color: white;
+      margin-left: 8px;
+    }
+
+    .btn-secondary:hover {
+      background: #545b62;
+    }
+
+    .stats-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+    }
+
+    .stat-card {
+      background: white;
+      padding: 16px;
+      border-radius: 8px;
+      text-align: center;
+      border: 1px solid #e9ecef;
+    }
+
+    .stat-number {
+      font-size: 24px;
+      font-weight: 700;
+      color: #007bff;
+      display: block;
+    }
+
+    .stat-label {
+      font-size: 12px;
+      color: #666;
+      margin-top: 4px;
+    }
+
+    .wordbook-preview {
+      background: white;
+      border: 1px solid #e9ecef;
+      border-radius: 8px;
+      max-height: 200px;
+      overflow-y: auto;
+    }
+
+    .word-item {
+      padding: 12px 16px;
+      border-bottom: 1px solid #f1f3f4;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .word-item:last-child {
+      border-bottom: none;
+    }
+
+    .word-text {
+      font-weight: 500;
+      color: #333;
+    }
+
+    .word-date {
+      font-size: 12px;
+      color: #666;
+    }
+
+    .empty-state {
+      text-align: center;
+      padding: 40px 20px;
+      color: #666;
+      font-style: italic;
+    }
+
+    .footer {
+      padding: 16px 20px;
+      border-top: 1px solid #e9ecef;
+      background: white;
+      text-align: center;
+    }
+
+    .form-text {
+      font-size: 12px;
+      color: #666;
+      margin-top: 4px;
+      line-height: 1.4;
+    }
+
+    .version {
+      font-size: 12px;
+      color: #666;
+    }
+  </style>
+</head>
+<body>
+  <div class="header">
+    <h1>🌍 YouTube沉浸式翻译</h1>
+    <p>英语学习助手设置</p>
+  </div>
+
+  <div class="content">
+    <!-- 基础设置 -->
+    <div class="section">
+      <h2 class="section-title">⚙️ 基础设置</h2>
+      
+      <div class="form-group">
+        <label class="form-label">翻译引擎</label>
+        <select class="form-control" id="translationEngine">
+          <option value="deepl">DeepL翻译（推荐）</option>
+          <option value="google">Google翻译</option>
+        </select>
+      </div>
+
+      <div class="form-group" id="deeplApiKeyGroup">
+        <label class="form-label">DeepL API密钥（可选）</label>
+        <input type="password" class="form-control" id="deeplApiKey" placeholder="输入您的DeepL API密钥以获得更好的翻译质量">
+        <small class="form-text">不填写将使用免费备用方案，但翻译质量可能受限</small>
+      </div>
+
+      <div class="form-check">
+        <input type="checkbox" id="autoTranslate" checked>
+        <label for="autoTranslate">自动翻译字幕</label>
+      </div>
+
+      <div class="form-check">
+        <input type="checkbox" id="showPhonetic" checked>
+        <label for="showPhonetic">显示单词音标</label>
+      </div>
+    </div>
+
+    <!-- 界面设置 -->
+    <div class="section">
+      <h2 class="section-title">🎨 界面设置</h2>
+      
+      <div class="form-group">
+        <label class="form-label">主题模式</label>
+        <select class="form-control" id="theme">
+          <option value="dark">深色模式</option>
+          <option value="light">浅色模式</option>
+        </select>
+      </div>
+
+      <div class="form-group">
+        <label class="form-label">面板位置</label>
+        <select class="form-control" id="panelPosition">
+          <option value="right">右侧</option>
+          <option value="left">左侧</option>
+          <option value="bottom">底部</option>
+        </select>
+      </div>
+    </div>
+
+    <!-- 学习统计 -->
+    <div class="section">
+      <h2 class="section-title">📊 学习统计</h2>
+      <div class="stats-grid">
+        <div class="stat-card">
+          <span class="stat-number" id="totalWords">0</span>
+          <div class="stat-label">收藏单词</div>
+        </div>
+        <div class="stat-card">
+          <span class="stat-number" id="todayWords">0</span>
+          <div class="stat-label">今日新增</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 生词本预览 -->
+    <div class="section">
+      <h2 class="section-title">📚 生词本</h2>
+      <div class="wordbook-preview" id="wordbookPreview">
+        <div class="empty-state">暂无收藏的单词</div>
+      </div>
+    </div>
+
+    <!-- 操作按钮 -->
+    <div class="section">
+      <button class="btn btn-primary" id="saveSettings">保存设置</button>
+      <button class="btn btn-secondary" id="exportWordbook">导出生词本</button>
+    </div>
+  </div>
+
+  <div class="footer">
+    <div class="version">版本 1.0.0</div>
+  </div>
+
+  <script src="popup.js"></script>
+</body>
+</html>

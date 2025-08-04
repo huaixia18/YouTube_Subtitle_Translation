@@ -1,0 +1,43 @@
+{
+  "manifest_version": 3,
+  "name": "YouTube沉浸式翻译",
+  "version": "1.0.0",
+  "description": "YouTube视频英文字幕翻译和单词学习助手",
+  "permissions": [
+    "activeTab",
+    "storage",
+    "scripting",
+    "contextMenus"
+  ],
+  "host_permissions": [
+    "https://www.youtube.com/*",
+    "https://api-free.deepl.com/*",
+    "https://api.deepl.com/*",
+    "https://translate.googleapis.com/*",
+    "https://fanyi.baidu.com/*",
+    "https://fanyi-api.baidu.com/*",
+    "https://api.dictionaryapi.dev/*",
+    "https://dict.youdao.com/*"
+  ],
+  "content_scripts": [
+    {
+      "matches": ["https://www.youtube.com/watch*"],
+      "js": ["src/content.js"],
+      "css": ["css/content.css"],
+      "run_at": "document_end"
+    }
+  ],
+  "background": {
+    "service_worker": "src/background.js"
+  },
+  "action": {
+    "default_popup": "popup.html",
+    "default_title": "YouTube翻译设置"
+  },
+  "web_accessible_resources": [
+    {
+      "resources": ["css/content.css"],
+      "matches": ["https://www.youtube.com/*"]
+    }
+  ]
+}

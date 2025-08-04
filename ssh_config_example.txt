@@ -1,0 +1,30 @@
+# SSH配置示例文件 (~/.ssh/config)
+
+# GitHub配置
+Host github.com
+    HostName github.com
+    User git
+    IdentityFile ~/.ssh/id_rsa_github
+
+# GitLab配置  
+Host gitlab.com
+    HostName gitlab.com
+    User git
+    IdentityFile ~/.ssh/id_rsa_gitlab
+
+# 公司Git服务器配置
+Host git.company.com
+    HostName git.company.com
+    User git
+    IdentityFile ~/.ssh/id_rsa_company
+
+# 你也可以使用别名
+Host github-work
+    HostName github.com
+    User git
+    IdentityFile ~/.ssh/id_rsa_work
+
+Host github-personal
+    HostName github.com
+    User git  
+    IdentityFile ~/.ssh/id_rsa_personal
